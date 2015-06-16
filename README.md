@@ -1,6 +1,6 @@
 # concat-src
 
-> Parse src attributes and concat into a bundle.js. Made to modernise the build tools for a legacy project that contains a lot of circa 2010 document.write('<script />')
+> Parse src attributes and concat into a bundle.js. Made to modernise the build tools for a legacy project that contains a lot of circa 2010 document.write() approach to loading js files.
 
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
@@ -86,7 +86,7 @@ grunt.initConfig({
 ```
 
 ## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
+Use editorconfig to ensure coding style is maintained. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
 _(Nothing yet)_
