@@ -1,5 +1,5 @@
 {
-	"name": "concat-src",
+	"name": "grunt-concat-src",
 	"description": "Parse script tags and create a bundle of the src files",
 	"version": "0.0.1",
 	"homepage": "https://github.com/mbudm/grunt-concat-src",
