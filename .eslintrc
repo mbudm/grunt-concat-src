@@ -1,0 +1,36 @@
+{
+  "env": {
+    "node": 1
+  },
+  "globals": {
+    "module": 1
+  },
+
+  "rules": {
+
+    // Configuration of the built-in rules: http://eslint.org/docs/rules/
+    "brace-style": [2, "1tbs", {"allowSingleLine": true}],  // AKA: The Manny Rule
+    "camelcase": 0,
+    "complexity": [2, 10],
+    "consistent-return": 0,
+    "dot-notation": 0,
+    "eol-last": 0,
+    "key-spacing": 0,
+    "new-cap": 0,
+    "no-console": 0,
+    "no-mixed-spaces-and-tabs": [2, "smart-tabs"],
+    "no-multi-spaces": 0,
+    "no-script-url": 0,
+    "no-shadow": 0,
+    "no-trailing-spaces": 0,
+    "no-underscore-dangle": 0,
+    "no-unused-vars": [2, {"vars": "all", "args": "none"}],
+    "no-use-before-define": 0,
+    "quotes": [2, "single"],
+    "strict": 2,
+    "no-mixed-spaces-and-tabs": 2,
+    "no-wrap-func": 1,
+    "eqeqeq": [1,"smart"], // turning this into a warning for now
+
+  }
+}

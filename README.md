@@ -1,6 +1,6 @@
 # concat-src
 
-> Parse src attributes and concat into a bundle.js
+> Parse src attributes and concat into a bundle.js. Made to modernise the build tools for a legacy project that contains a lot of circa 2010 document.write('<script />')
 
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
@@ -28,8 +28,8 @@ grunt.initConfig({
     options: {
       // Task-specific options go here.
     },
-    your_target: {
-      // Target-specific file lists and/or options go here.
+    yourFileList: [
+      // Target-specific file lists
     },
   },
 });
@@ -39,45 +39,48 @@ grunt.initConfig({
 
 #### options.separator
 Type: `String`
-Default value: `',  '`
+Default value: `''`
 
-A string value that is used to do something with whatever.
+A string value that is used to do separate the files in the bundle
 
-#### options.punctuation
+#### options.dest
 Type: `String`
-Default value: `'.'`
+Default value: `'dist'`
 
-A string value that is used to do something else with whatever else.
+Destination folder for bundle files
+
+#### options.reflectPath
+Type: `Boolean`
+Default value: `false`
+
+Replicate the files original paths within the destination folder.
 
 ### Usage Examples
 
 #### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+No custom options, the assets listed in the two files will be concatenated into two bundles at dist/docwrite.js & dist/scripts.js
 
 ```js
 grunt.initConfig({
   concat_src: {
     options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
+    files: ['src/docwrite.js', 'src/scripts.js'],
   },
 });
 ```
 
 #### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
+All options set. The bundles will have a custome string between each concatenated asset. The assets listed in the two files will be concatenated into two bundles at build/some/deep/folder/docwrite.js & build/lib/scripts.js
 
 ```js
 grunt.initConfig({
   concat_src: {
     options: {
-      separator: ': ',
-      punctuation: ' !!!',
+			separator: ' /*   --- end of file ---   */',
+			dest: 'build',
+			reflectPath: true
     },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
+		files: ['some/deep/folder/docwrite.js', 'lib/scripts.js'],
   },
 });
 ```

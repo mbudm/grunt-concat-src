@@ -8,43 +8,65 @@
 
 'use strict';
 
+var path = require('path');
+
 module.exports = function(grunt) {
 
-  // Please see the Grunt documentation for more information regarding task
-  // creation: http://gruntjs.com/creating-tasks
+  grunt.registerMultiTask('concat_src', 'Parse src attributes and concat into a bundle.js', function(arg1) {
 
-  grunt.registerMultiTask('concat_src', 'Parse src attributes and concat into a bundle.js', function() {
-    // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
-      punctuation: '.',
-      separator: ', '
+      separator: '',
+      dest:'dist',
+      reflectPath:false
     });
 
-    // Iterate over all specified file groups.
-    this.files.forEach(function(f) {
-      // Concat specified files.
-      var src = f.src.filter(function(filepath) {
-        // Warn on and remove invalid source files (if nonull was set).
-        if (!grunt.file.exists(filepath)) {
-          grunt.log.warn('Source file "' + filepath + '" not found.');
-          return false;
-        } else {
-          return true;
+
+    var legitFiles = this.filesSrc.filter(function(f) {
+      // Warn on and remove invalid source files.
+      if (!grunt.file.exists(f)) {
+        grunt.log.warn('Source file "' + f + '" not found.');
+        return false;
+      }else{
+        return true;
+      }
+    });
+
+    // Parse files for assets
+    legitFiles.forEach(function(f){
+
+      var fileSrc = grunt.file.read(f);
+      var lines = fileSrc.replace(/\r\n/g, '\n').split(/\n/);
+      var srcDir = path.dirname(f);
+      var bundleSrc = lines.map(function(line) {
+        var asset = (line.match(/(src)=["']([^'"]+)["']/) || [])[2];
+        if(!asset){
+          return false; //fail early
         }
-      }).map(function(filepath) {
-        // Read file source.
-        return grunt.file.read(filepath);
+
+        // Warn on and remove invalid asset files
+        if (!grunt.file.exists(srcDir, asset)) {
+          grunt.log.warn('Asset "' +  asset + '" listed in "' + srcDir + '" not found.');
+          return false;
+        }else{
+          return path.join(srcDir, asset);
+        }
+      }).filter(function(assetPath){
+        return assetPath ? true : false;
+      }).map(function(assetPath){
+        return grunt.file.read(assetPath);
       }).join(grunt.util.normalizelf(options.separator));
 
-      // Handle options.
-      src += options.punctuation;
 
-      // Write the destination file.
-      grunt.file.write(f.dest, src);
+      var bundlePath = options.reflectPath ? f : path.basename(f);
+      var dest = path.join(options.dest, bundlePath);
+
+      // Write the bundle file.
+      grunt.file.write(dest, bundleSrc);
 
       // Print a success message.
-      grunt.log.writeln('File "' + f.dest + '" created.');
+      grunt.log.writeln('Bundle "' + dest + '" created.');
     });
+
   });
 
 };
