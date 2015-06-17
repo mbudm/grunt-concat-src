@@ -10,6 +10,14 @@
 
 var path = require('path');
 
+function convertPaths(cPaths, path){
+
+  cPaths.forEach(function(cp){
+    path = path.replace(cp.from, cp.to);
+  });
+  return path;
+}
+
 module.exports = function(grunt) {
 
 	grunt.registerMultiTask('concat_src', 'Parse src attributes and concat into a bundle.js', function(arg1) {
@@ -17,7 +25,8 @@ module.exports = function(grunt) {
 		var options = this.options({
 			separator: '',
 			dest: 'dist',
-			reflectPath: false
+			reflectPath: false,
+      convertPaths: []
 		});
 
 
@@ -46,6 +55,8 @@ module.exports = function(grunt) {
 				//handle absolute paths
 				var baseDir = asset.charAt(0) === '/' ? '' : srcDir;
 				var assetCorrected = asset.charAt(0) === '/' ? '.' + asset : asset;
+
+        assetCorrected = convertPaths(options.convertPaths, assetCorrected);
 
 				// Warn on and remove invalid asset files
 				if (!grunt.file.exists(baseDir, assetCorrected)) {

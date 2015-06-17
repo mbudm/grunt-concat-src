@@ -1,7 +1,7 @@
 {
 	"name": "grunt-concat-src",
 	"description": "Parse script tags and create a bundle of the src files",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"homepage": "https://github.com/mbudm/grunt-concat-src",
 	"author": {
 		"name": "Steve Roberts",

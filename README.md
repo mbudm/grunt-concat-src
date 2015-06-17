@@ -70,15 +70,23 @@ grunt.initConfig({
 ```
 
 #### Custom Options
-All options set. The bundles will have a custome string between each concatenated asset. The assets listed in the two files will be concatenated into two bundles at build/some/deep/folder/docwrite.js & build/lib/scripts.js
+All options set. The bundles will have a custom string between each concatenated asset. The assets listed in the two files will be concatenated into two bundles at build/some/deep/folder/docwrite.js & build/lib/scripts.js
+
+Any assets that contain in their path, 'legacyPath/' will have this removed.
 
 ```js
 grunt.initConfig({
   concat_src: {
     options: {
-			separator: ' /*   --- end of file ---   */',
+			separator: ' /*   --- end of file ---   */ ',
 			dest: 'build',
-			reflectPath: true
+			reflectPath: true,
+			convertPaths:[
+				{
+					from:'legacyPath/',
+					to:''
+				}
+			]
     },
 		files: ['some/deep/folder/docwrite.js', 'lib/scripts.js'],
   },

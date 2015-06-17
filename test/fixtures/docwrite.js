@@ -1,2 +1,3 @@
 document.write('<script type="text/javascript" src="one.js"> </script>');
-document.write('<script type="text/javascript" src="two.js"> </script>');
+/* absolute path with legacy folder removable by convertPath option */
+document.write('<script type="text/javascript" src="/legacyPath/test/fixtures/two.js"> </script>');

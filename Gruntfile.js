@@ -20,6 +20,14 @@ module.exports = function(grunt) {
 
 		// Configuration to be run (and then tested).
 		concat_src: {
+			options:{
+				convertPaths:[
+					{
+						from:'legacyPath/',
+						to:''
+					}
+				]
+			},
 			allFiles: ['test/fixtures/docwrite.js', 'test/fixtures/scripts.js']
 		},
 
